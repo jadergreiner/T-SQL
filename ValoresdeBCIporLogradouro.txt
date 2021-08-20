@@ -1,0 +1,47 @@
+// o cliente precisava dos valores aplicados por m2. Pesquisando identifiquei que este valor era gerado diretamente no cálculo e o valor da variável
+// era saldo em um BCI
+//
+// Apliquei um group by no valor do metro quadrado e coloquei as ruas dentro de uma lista. Assim é possível tabular a faixa de valor aplicado em cada logradouro.
+
+SELECT
+	rua = bethadba.dbf_ret_endereco_refer(i_imoveis,1,1) + ' - ' + bethadba.dbf_ret_endereco_refer(i_imoveis,1,2), // função que retorna endereço.
+	vm2 = dbf_fc_retbci_valor(i_imoveis,8899,2021) // função que busca valor atualizado do BCI
+	
+// estou mantendo os parâmetros da função do endereço caso queira incluir/modificar alguma informação.	
+/*
+p_tipo = 0 pessoa
+p_tipo = 1 imóvel
+p_tipo = 2 econômico
+*/
+
+/*
+p_tipo_end = 1  código da rua
+2  nome da rua
+3  código do bairro
+4  nome do bairro
+5  complemento
+6  numero
+7  bloco
+8  apto
+9  nome_distrito
+0  nome_cidade
+10 código do Distrito
+11 código Estado
+12 CEP
+13 Loteamento
+14 Lote
+15 Quadra
+16 Condominio
+17 Região
+18 Setor
+19 Rota
+20 Sequencia
+21 subsequencia
+*/
+FROM 
+	bethadba.imoveis
+WHERE 
+	desativado = 'N' and 
+	vm2 is not null
+GROUP BY vm2,rua
+ORDER BY rua desc, vm2

@@ -1,0 +1,15 @@
+// este script verifica a diferença entre o valor lançado de um ano para outro
+// o único ajuste necessário é customizar as receitas e atualizar o campo ano nos campos correspondentes
+
+select DISTINCT
+      l.i_imoveis,
+      v2020 = (select sum (valor_lanc)  from bethadba.rec_lanctos rl inner join bethadba.lanctos l2 on l2.i_lanctos = rl.i_lanctos 
+      where i_imoveis = l.i_imoveis and rl.i_receitas in (101,102,103,104,105) and ano = 2020 and situacao <> 'C'),
+      v2021 = (select sum (valor_lanc)  from bethadba.rec_lanctos rl inner join bethadba.lanctos l2 on l2.i_lanctos = rl.i_lanctos 
+      where i_imoveis = l.i_imoveis and rl.i_receitas in (101,102,103,104,105) and ano = 2021 and situacao <> 'C'),
+      dif = v2021 - v2020
+      
+             
+from bethadba.lanctos l 
+where l.i_receitas = 100 and ano in(2020,2021) and dif <> 0  
+order by i_imoveis
