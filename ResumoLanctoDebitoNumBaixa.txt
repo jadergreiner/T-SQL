@@ -1,5 +1,13 @@
-select l.i_lanctos, d.i_debitos, rl.valor_lanc, rd.valor_gerado, nb.i_num_baixas, * from bethadba.lanctos l inner join bethadba.rec_lanctos rl on l.i_lanctos = rl.i_lanctos
-                                 inner join bethadba.debitos d         on l.i_lanctos = d.i_lanctos
-                                 inner join bethadba.rec_debitos rd    on d.i_debitos = rd.i_debitos
-                                 inner join bethadba.numeros_baixas nb on l.i_lanctos = nb.i_lanctos
-where l.ano = 2019 and i_economicos = 4861 and l.i_receitas = 6400 and d.parcela = 7 and l.situacao = 'A'
+SELECT 
+      l.i_lanctos, 
+      d.i_debitos, 
+      rl.valor_lanc, 
+      rd.valor_gerado, 
+      nb.i_num_baixas, * 
+
+FROM bethadba.lanctos l inner join bethadba.rec_lanctos rl on l.i_lanctos = rl.i_lanctos
+                        inner join bethadba.debitos d         on l.i_lanctos = d.i_lanctos
+                        inner join bethadba.rec_debitos rd    on d.i_debitos = rd.i_debitos
+                        inner join bethadba.numeros_baixas nb on l.i_lanctos = nb.i_lanctos
+                        
+WHERE l.ano = 2019 and i_economicos = 4861 and l.i_receitas = 6400 and d.parcela = 7 and l.situacao = 'A'
