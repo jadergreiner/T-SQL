@@ -4,6 +4,7 @@ SELECT
 	i_imoveis,
 	rua = bethadba.dbf_ret_endereco_refer(i_imoveis,1,2),    // os parâmetros estão abaixo
 	bairro = bethadba.dbf_ret_endereco_refer(i_imoveis,1,4), // os parâmetros estão abaixo
+	contribuinte = imoveis.i_pessoas || ' - ' || (select nome from bethadba.vw_nome_pessoas where vw_nome_pessoas.i_pessoas = imoveis.i_pessoas),
 	desativado = desativado,
 	loc = dbf_fc_retbci_valor(i_imoveis,7099,2021), // função que retorna dados do BCI atualizados (referente, BCI, ano)
 	zona = campo1,
